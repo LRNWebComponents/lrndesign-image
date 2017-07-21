@@ -1,0 +1,115 @@
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-image/iron-image.html">
+<link rel="import" href="../paper-tooltip/paper-tooltip.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../materializecss-styles/colors.html">
+<link rel="import" href="../lrnsys-behaviors/lrnsys-behaviors.html">
+<link rel="import" href="../lrnsys-layout/lrnsys-dialog.html">
+
+<!--
+`lrnsys-button`
+A LRN element
+
+@demo demo/index.html
+-->
+<dom-module id="lrndesign-image">
+  <template>
+    <style>
+      :host {
+        display: block;
+        --parallax-background-height: 300px;
+        --parallax-background-image: url('');
+      }
+
+      .parallax-background {
+        background: var(--parallax-background-image);
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: var(--parallax-background-height);
+        position:relative;
+      }
+      .hide-alt {
+        position: absolute !important;
+        clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+        clip: rect(1px, 1px, 1px, 1px);
+        overflow: hidden;
+        height: 1px;
+      }
+      .contain {
+        min-width: 10em;
+        min-height: 10em;
+        width: 100%;
+        margin: 1em;
+        height: 100%;
+      }
+
+      .center {
+        margin: auto;
+        width: 80%;
+        padding: 1em;
+      }
+    </style>
+    <template is="dom-if" if="{{matchDisplay('parallax', display)}}">
+      <div class="parallax-background">
+        <span class="hide-alt">[[alt]]</span>
+      </div>
+    </template>
+    <template is="dom-if" if="{{matchDisplay('image', display)}}">
+      <iron-image id="image" src$="[[src]]" preload sizing="cover" width$="[[width]]" height$="[[height]]" alt$="[[alt]]"></iron-image>
+      <paper-tooltip for="image">
+    [[alt]]
+    </paper-tooltip>
+    </template>
+    <template is="dom-if" if="{{matchDisplay('lightbox', display)}}">
+      <lrnsys-dialog alt$="[[alt]]" header$="[[title]]">
+        <iron-image slot="button" src$="[[src]]" preload sizing="contain" width$="[[width]]" height$="[[height]]" alt$="[[alt]]"></iron-image>
+        <iron-image slot="content" sizing="contain" class="contain" preload fade src$="[[src]]"></iron-image>
+      </lrnsys-dialog>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      is: 'lrndesign-image',
+      behaviors: [LRNBehaviors.DisplayBehaviors],
+      properties: {
+        src: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+        alt: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+        title: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+        height: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+        width: {
+          type: String,
+          notify: true,
+          reflectToAttribute: true
+        },
+      },
+      ready: function() {
+        let root = this;
+        if (root.display == 'parallax') {
+          Number.isNaN(parseInt(root.height))? '300': parseInt(root.height);
+          root.updateStyles({
+            '--parallax-background-image': 'url(' + root.src + ')',
+            '--parallax-background-height': root.height+'px'
+          });
+        }
+      },
+    });
+  </script>
+</dom-module>
