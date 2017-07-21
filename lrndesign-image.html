@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`lrndesign-image`
+A LRN element
+
+@demo demo/index.html
+-->
+
+<dom-module id="lrndesign-image">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>[[title]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'lrndesign-image',
+
+      properties: {
+        title: {
+          type: String,
+          value: 'lrndesign-image',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
