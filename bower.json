@@ -10,7 +10,8 @@
     "paper-spinner": "PolymerElements/paper-spinner#^1.2.1",
     "paper-tooltip": "PolymerElements/paper-tooltip#^1.1.4",
     "iron-image": "PolymerElements/iron-image#^2.1.2",
-    "lrnsys-layout": "LRNWebComponents/lrnsys-layout#^0.1.6"
+    "lrnsys-layout": "LRNWebComponents/lrnsys-layout#^0.1.6",
+    "freezeframe.js": "ctrl-freaks/freezeframe.js"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
